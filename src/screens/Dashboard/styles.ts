@@ -1,7 +1,10 @@
 import styled from "styled-components/native";
 import theme from "../../global/styles/theme";
 import { Feather } from '@expo/vector-icons'
-
+import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper'
+import { RFPercentage } from "react-native-responsive-fontsize";
+import { DataListProps } from '.';
+import { FlatList } from 'react-native';
 
 export const Container = styled.View`
     flex: 1;
@@ -10,7 +13,7 @@ export const Container = styled.View`
 
 export const Header = styled.View`
     width: 100%;
-    height: 42% ;
+    height: ${RFPercentage(42)}px ;
     background-color: ${theme.colors.primary};
     justify-content: center;
     align-items: flex-start;
@@ -22,6 +25,7 @@ export const UserWrapper = styled.View`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: ${getStatusBarHeight() + 28}px ;
 
 `;
 export const UserInfo = styled.View`
@@ -57,5 +61,28 @@ export const HighlightCards = styled.ScrollView.attrs({
     showsHorizontalScrollIndicator: false,
     contentContainerStyle: { paddingHorizontal: 24 },
 })`
+    width: 100%;
+    position: absolute;
+    margin-top: ${RFPercentage(25)}px;
 
+`;
+export const Transactions = styled.View`
+    flex: 1;
+    padding: 0 24px;
+    margin-top: ${RFPercentage(12)}px;
+`;
+export const Title = styled.Text`
+    color: ${theme.colors.text_dark};
+    font-size: 18px;
+    font-family: ${theme.fonts.regular};
+    margin-bottom: 16px;
+`;
+
+export const TransactionList = styled(
+    FlatList as new () => FlatList<DataListProps>
+).attrs({
+    showsVerticalScrollIndicator: false,
+    contentContainerStyle: { paddingBottom: getBottomSpace() }
+})`
+   
 `;
