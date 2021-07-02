@@ -25,10 +25,10 @@ export function Register() {
           <Input
             placeholder={'Nome'}
           />
-          <Input
+          <Input 
             placeholder={'Preço'}
           />
-        </Fields>
+        </Fields> 
         <Button title={'Enviar'} />
       </Form>
     </Container>
