@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
-import { HighlightCard } from '../../components/HighlightCard'
-import { TransactionCard, TransactionCardProps } from '../../components/TransactionCard'
+import { Modal } from 'react-native';
+
 import { Input } from '../../components/Forms/Input'
 import { Button } from '../../components/Forms/Button'
 import { TransactionTypeButton } from '../../components/Forms/TransactionTypeButton'
-import { CategorySelected } from '../../components/Forms/CategorySelected'
+import { CategorySelectedButton } from '../../components/Forms/CategorySelectedButton'
+import { CategorySelect } from '../CategorySelect'
+
+
 import {
   Container,
   Header,
@@ -14,16 +16,29 @@ import {
   Fields,
   TransactionTypes,
 } from './styles';
+import { categories } from '../../utils/categories';
 
 
 
 export function Register() {
+  const [categoryModalOpen, setCategoryModalOpen] = useState(false)
   const [transactionType, setTransactionType] = useState('')
+
+  const [category, setCategory] = useState({
+    key: 'category',
+    name: 'Categoria',
+  })
 
   function handleTransactionTypeSelected(type: 'up' | 'down') {
     setTransactionType(type)
   }
+  function handleOpenSelectCategoryModal() {
+    setCategoryModalOpen(true)
+  }
 
+  function handleCloseSelectCategoryModal() {
+    setCategoryModalOpen(false)
+  }
   return (
     <Container >
       <Header>
@@ -51,10 +66,20 @@ export function Register() {
               isActive={transactionType === 'down'}
             />
           </TransactionTypes>
-          <CategorySelected title={'Categorias'} />
+          <CategorySelectedButton
+            title={category.name}
+            onPress={handleOpenSelectCategoryModal}
+          />
         </Fields>
         <Button title={'Enviar'} />
       </Form>
+      <Modal visible={categoryModalOpen}>
+        <CategorySelect
+          category={category}
+          setCategory={setCategory}
+          closeSelectCategory={handleCloseSelectCategoryModal}
+        />
+      </Modal>
     </Container>
   );
 }

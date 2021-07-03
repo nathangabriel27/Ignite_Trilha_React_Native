@@ -7,13 +7,14 @@ import {
 } from './styles';
 
 interface Props {
-  title: string
+  title: string,
+  onPress: () => void;
 }
 
-export function CategorySelected({ title }: Props) {
+export function CategorySelectedButton({ title, onPress }: Props) {
 
   return (
-    <Container >
+    <Container onPress={onPress}>
       <Category>{title}</Category>
       <Icon name={'chevron-down'} />
     </Container>

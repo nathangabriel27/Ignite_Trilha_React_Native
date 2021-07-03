@@ -3,6 +3,9 @@ import styled from "styled-components/native";
 import theme from "../../global/styles/theme";
 import { Feather } from '@expo/vector-icons'
 
+interface CategoryProps {
+    isActive: boolean
+}
 
 export const Container = styled.View`
     flex: 1;
@@ -22,11 +25,13 @@ export const Title = styled.Text`
     font-family: ${theme.fonts.regular};
   `;
 
-export const Category = styled.View`
+export const Category = styled.TouchableOpacity<CategoryProps>`
     width: 100%;
     padding: 15px;
     flex-direction: row;
     align-items: center;
+    background-color: ${({ isActive }) => isActive ? theme.colors.secundary_light : theme.colors.background};
+
  `;
 export const Icon = styled(Feather)`
     font-size: 20px;
